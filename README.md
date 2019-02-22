@@ -9,6 +9,8 @@ Design (UML) and code(Java) programs that will:
 2. read the file of random addresses and insert them into a priority queue, where the priority is the distance from current truck location to the address. 
 Assume truck at a fixed location in the middle of the neighborhood (distribution center).
 
+3. be able to print a representation of the neighborhood with delivery locations indicated.
+
 - Client will describe the details of the neighborhood.
 
 - Update the requirements document to include this “story".
