@@ -2,6 +2,7 @@ CSCI 234 - Software Engineering
 Spring 2019
 Project03
 
+Due: Friday, February 29, at 11:59pm
 
 Design (UML) and code(Java) programs that will: 
 1. generate random addresses in our Sandwich Truck’s neighborhood and save them to a file. Create a file with 100 random addresses.
