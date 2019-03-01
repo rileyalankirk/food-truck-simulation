@@ -1,3 +1,6 @@
+package Simulation;
+
+
 public class CreateNeighborhood
 {
     public static void main(String[] args)
