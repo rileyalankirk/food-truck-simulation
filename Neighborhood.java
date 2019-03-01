@@ -3,13 +3,11 @@ package Simulation;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Neighborhood
 {
     private String[][] grid;
-    private LinkedList<Address> addresses = new LinkedList<>();
 
     public Neighborhood()
     {
@@ -18,6 +16,7 @@ public class Neighborhood
 
     public void generateNeighborhood(String filename)
     {
+        // Location of houses, represented as "o"; crossroads as "-"
         for (int x = 0; x < 201; x++)
         {
             for (int y = 0; y < 201; y++)
@@ -39,29 +38,35 @@ public class Neighborhood
             }
         }
 
+        // Read file, create new address and add location to neighborhood map
         try {
             File file = new File(filename);
             Scanner scanner = new Scanner(file);
-            String value[];
-            while(scanner.hasNextLine()){
+            String address[];
+            while(scanner.hasNextLine())
+            {
                 String line = scanner.nextLine();
-                value = line.split(" ");
-                int houseNum = Integer.parseInt(value[0]);
-                int streetNum = Integer.parseInt(value[2]);
-                if (value[1].compareTo("East") == 0)
-                    add(new Address(houseNum,true,streetNum));
+                address = line.split(" ");
+                int houseNum = Integer.parseInt(address[0]);
+                int streetNum = Integer.parseInt(address[2]);
+                if (address[1].compareTo("East") == 0)
+                    add(new Address(houseNum,true, streetNum));
                 else
-                    add(new Address(houseNum,false,streetNum));
+                    add(new Address(houseNum,false, streetNum));
             }
         }
         catch (IOException e) {
 
         }
 
+        // Location of the distribution center, represented as "&"
+        grid[91][90] = "& ";
+
     }
 
     public void add(Address ad)
     {
+        // Location of an address, represented as "x"
         if (!ad.isDirection())
             grid[ad.houseNum/10][ad.streetNum*10] = "x ";
         else
@@ -70,6 +75,7 @@ public class Neighborhood
 
     public void printNeighborhood()
     {
+        // Print neighborhood
         for (int x = 0; x < 201; x++) {
             for (int y = 0; y < 201; y++)
                 System.out.print(grid[x][y]);
