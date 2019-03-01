@@ -1,6 +1,7 @@
 import java.util.Comparator;
 import java.util.Random;
 
+import static java.lang.Math.abs;
 import static java.lang.Math.sqrt;
 
 public class Address implements Comparable<Address> {
@@ -75,28 +76,24 @@ public class Address implements Comparable<Address> {
         return streetNum;
     }
 
-    public double distance(){
-        if(!direction)
+    public double distance() {
+        /*   if(!direction)
             return Math.sqrt(Math.pow(DISTRIBUTION_HOUSENUM - (streetNum * 100), 2) + Math.pow((DISTRIBUTION_STREETNUM * 100) - houseNum, 2));
 
         return Math.sqrt(Math.pow(DISTRIBUTION_HOUSENUM - houseNum,2) + Math.pow((DISTRIBUTION_STREETNUM * 100) - (streetNum * 100),2));
+
+        */ // BAsed on actual line distance rather than actual time distance
+        if(direction){
+            return Math.abs(DISTRIBUTION_HOUSENUM - houseNum) + Math.abs(DISTRIBUTION_STREETNUM * 100);
+        }
+
+        return Math.abs(DISTRIBUTION_HOUSENUM - (streetNum * 100)) + Math.abs((DISTRIBUTION_STREETNUM * 100) - houseNum);
     }
 
     @Override
     public String toString() {
         return Integer.toString(getHouseNum()) + " " + directionToString() + " " + Integer.toString(getStreetNum());
     }
-
-  /*  @Override
-    public int compare(Address o1, Address o2) {
-        if (o1.distance() < o2.distance())
-            return 1;
-
-        if (o1.distance() > o2.distance())
-            return -1;
-
-        return 0;
-    } */
 
     @Override
     public int compareTo(Address o) {
