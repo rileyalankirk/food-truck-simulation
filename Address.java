@@ -30,30 +30,30 @@ public class Address implements Comparable<Address> {
          this.streetNum = streetNum;
     }
 
-    public int getRandomHouseNum(){
-        int n = rand.nextInt(20);
+    private int getRandomNumberInRange(int min, int max){
+        if (min >= max){
+            throw new IllegalArgumentException("The max must be more than the min!");
+        }
 
-        if(n == 0)
-            n = 1;
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
+    }
+
+    public int getRandomHouseNum(){
+        int n = getRandomNumberInRange(0,19);
 
         n = n * 100;
 
         n = n + (rand.nextInt(10) * 10);
 
-        if (n % 100 == 0)
+        if (n % 100 == 0 || n == 0)
             n = n + 10;
-
         return n;
     }
 
     public int getRandomStreetNum(){
-        int n = rand.nextInt(10);
-
-        if (n == 0)
-            n = 1;
-
+        int n = getRandomNumberInRange(0,20);
         return n;
-
     }
 
 
