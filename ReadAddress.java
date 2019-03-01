@@ -26,19 +26,10 @@ public class ReadAddress
                 int houseNum = Integer.parseInt(value[0]);
                 int streetNum = Integer.parseInt(value[2]);
                 //System.out.println(value[0] + "|" + value[1] + "|" + value[2]);//check line split
-                while (scanner.hasNextLine())
-                {
-                    String line = scanner.nextLine();
-                    //System.out.println(line);//check line
-                    value = line.split(" ");
-                    int houseNum = Integer.parseInt(value[0]);
-                    int streetNum = Integer.parseInt(value[2]);
-                    //System.out.println(value[0] + "|" + value[1] + "|" + value[2]);//check line split
-                    if (value[1].compareTo("East") == 0)
-                        priorityQueue.add(new Address(houseNum, true, streetNum));
-                    else
-                        priorityQueue.add(new Address(houseNum, false, streetNum));
-                }
+                if (value[1].compareTo("East") == 0)
+                    priorityQueue.add(new Address(houseNum, true, streetNum));
+                else
+                    priorityQueue.add(new Address(houseNum, false, streetNum));
             }
         }
         catch (IOException e){
