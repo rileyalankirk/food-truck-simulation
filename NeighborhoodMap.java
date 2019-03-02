@@ -9,15 +9,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 
-public class DrawMap
+public class NeighborhoodMap
 {
-    static final int HEIGHT = 782, WIDTH = 760;
+    static final int HEIGHT = 782, WIDTH = 761;
     static final int MARKER_SIZE = 5;
     static final int BLOCK_WIDTH = 40;
 
-    public static void main(String[] args)
+    public static void drawNeighborhood(String filename, PriorityQueue<Address> addresses)
     {
-        PriorityQueue<Address> addresses = ReadAddress.readAddresses(ReadAddress.FILE);
         JFrame map = new JFrame();
         JPanel canvas = new JPanel() {
             protected void paintComponent(Graphics g) {
@@ -52,6 +51,12 @@ public class DrawMap
         map.setResizable(false);
         map.setLocationRelativeTo(null); // center on screen
         map.setVisible(true);
+    }
+
+    public static void drawNeighborhood(String filename)
+    {
+        PriorityQueue<Address> addresses = AddressIO.readAddresses(filename);
+        drawNeighborhood(filename, addresses);
     }
 }
 
