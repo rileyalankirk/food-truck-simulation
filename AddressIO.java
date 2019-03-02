@@ -17,17 +17,13 @@ public class AddressIO
         PriorityQueue<Address> priorityQueue = new PriorityQueue<>();
         try
         {
-            File file = new File(filename);
-            Scanner scanner = new Scanner(file);
-            String value[];
+            Scanner scanner = new Scanner(new File(filename));
             while(scanner.hasNextLine())
             {
                 String line = scanner.nextLine();
-                //System.out.println(line);//check line
-                value = line.split(" ");
+                String value[] = line.split(" ");
                 int houseNum = Integer.parseInt(value[0]);
                 int streetNum = Integer.parseInt(value[2]);
-                //System.out.println(value[0] + "|" + value[1] + "|" + value[2]);//check line split
                 priorityQueue.add(new Address(houseNum, value[1].compareTo("East") == 0, streetNum));
             }
         }
@@ -41,8 +37,7 @@ public class AddressIO
     public static void writeAddresses(String filename, int numberAddresses)
     {
         try {
-            File file = new File(filename);
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(filename)));
             for (int i = 0; i < numberAddresses; i++) {
                 Address address = new Address();
                 writer.write(address.toString() + "\n");

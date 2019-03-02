@@ -3,7 +3,8 @@ package Simulation;
 
 import java.util.Random;
 
-public class Address implements Comparable<Address> {
+public class Address implements Comparable<Address>
+{
 
     private boolean direction; //TRUE, 1 = east, FALSE, 0 = south
     private int houseNum; //house numbers are multiples of 10, starting at 100.  However, there are no houses at the multiples of 100s, as the first house on each street would be, for example, 110.
@@ -13,13 +14,15 @@ public class Address implements Comparable<Address> {
 
     Random rand = new Random();
 
-    protected Address(){
+    protected Address()
+    {
         direction = rand.nextBoolean();
         houseNum = getRandomHouseNum();
         streetNum = getRandomStreetNum();
     }
 
-    protected Address(int houseNum, boolean direction, int streetNum){
+    protected Address(int houseNum, boolean direction, int streetNum)
+    {
      if(houseNum >= 0 && houseNum < 2000)
         this.houseNum = houseNum;
 
@@ -29,7 +32,8 @@ public class Address implements Comparable<Address> {
          this.streetNum = streetNum;
     }
 
-    private int getRandomNumberInRange(int min, int max){
+    private int getRandomNumberInRange(int min, int max)
+    {
         if (min >= max){
             throw new IllegalArgumentException("The max must be more than the min!");
         }
@@ -38,7 +42,8 @@ public class Address implements Comparable<Address> {
         return r.nextInt((max - min) + 1) + min;
     }
 
-    public int getRandomHouseNum(){
+    public int getRandomHouseNum()
+    {
         int n = getRandomNumberInRange(0,19);
 
         n = n * 100;
@@ -50,7 +55,8 @@ public class Address implements Comparable<Address> {
         return n;
     }
 
-    public int getRandomStreetNum(){
+    public int getRandomStreetNum()
+    {
         int n = getRandomNumberInRange(0,20);
         return n;
     }
@@ -60,22 +66,26 @@ public class Address implements Comparable<Address> {
         return direction;
     }
 
-    public String directionToString(){
+    public String directionToString()
+    {
         if (direction == false)
             return "South";
         else
             return "East";
     }
 
-    public int getHouseNum() {
+    public int getHouseNum()
+    {
         return houseNum;
     }
 
-    public int getStreetNum() {
+    public int getStreetNum()
+    {
         return streetNum;
     }
 
-    public double distance() {
+    public double distance()
+    {
         /*   if(!direction)
             return Math.sqrt(Math.pow(DISTRIBUTION_HOUSENUM - (streetNum * 100), 2) + Math.pow((DISTRIBUTION_STREETNUM * 100) - houseNum, 2));
 
@@ -90,12 +100,14 @@ public class Address implements Comparable<Address> {
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return Integer.toString(getHouseNum()) + " " + directionToString() + " " + Integer.toString(getStreetNum());
     }
 
     @Override
-    public int compareTo(Address o) {
+    public int compareTo(Address o)
+    {
         if (distance() < o.distance())
             return -1;
 

@@ -20,7 +20,7 @@ public class Main {
         PriorityQueue<Address> addresses = AddressIO.readAddresses(AddressIO.FILE);
 
         // Draw the neighborhood with the addresses and distribution center shown
-        NeighborhoodMap.drawNeighborhood(AddressIO.FILE, addresses);
+        Neighborhood.drawNeighborhood(AddressIO.FILE, addresses);
     }
 }
 
