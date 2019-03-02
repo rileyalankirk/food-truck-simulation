@@ -68,9 +68,9 @@ public class Neighborhood
     {
         // Location of an address, represented as "x"
         if (!ad.isDirection())
-            grid[ad.houseNum/10][ad.streetNum*10] = "x ";
+            grid[ad.getHouseNum()/10][ad.getStreetNum()*10] = "x ";
         else
-            grid[ad.streetNum*10][ad.houseNum/10] = "x ";
+            grid[ad.getStreetNum()*10][ad.getHouseNum()/10] = "x ";
     }
 
     public void printNeighborhood()
