@@ -38,7 +38,8 @@ public class AddressIO
     {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(new File(filename)));
-            for (int i = 0; i < numberAddresses; i++) {
+            for (int i = 0; i < numberAddresses; i++)
+            {
                 Address address = new Address();
                 writer.write(address.toString() + "\n");
             }

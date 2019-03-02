@@ -1,12 +1,7 @@
 package Simulation;
 
 
-import java.util.*;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.util.PriorityQueue;
 
 public class Main {
 
@@ -20,7 +15,7 @@ public class Main {
         PriorityQueue<Address> addresses = AddressIO.readAddresses(AddressIO.FILE);
 
         // Draw the neighborhood with the addresses and distribution center shown
-        Neighborhood.drawNeighborhood(AddressIO.FILE, addresses);
+        Neighborhood.drawNeighborhood(addresses);
         Neighborhood neighborhood = new Neighborhood();
         neighborhood.generateNeighborhood(addresses);
         neighborhood.printNeighborhood();

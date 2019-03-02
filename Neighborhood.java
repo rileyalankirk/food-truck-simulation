@@ -1,8 +1,10 @@
 package Simulation;
 
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
@@ -111,7 +113,7 @@ public class Neighborhood
         }
     }
 
-    public static void drawNeighborhood(String filename, PriorityQueue<Address> addresses)
+    public static void drawNeighborhood(PriorityQueue<Address> addresses)
     {
         JFrame map = new JFrame();
         JPanel canvas = new JPanel() {
@@ -124,7 +126,7 @@ public class Neighborhood
                         g.drawRect(BLOCK_WIDTH * x, BLOCK_WIDTH * y, BLOCK_WIDTH, BLOCK_WIDTH);
                 // draw distribution center
                 g.setColor(Color.GREEN);
-                g.fillRect(9*BLOCK_WIDTH - 2, 9*BLOCK_WIDTH + 4, MARKER_SIZE, MARKER_SIZE);
+                g.fillRect(9*BLOCK_WIDTH - 2, 9*BLOCK_WIDTH + 2, MARKER_SIZE, MARKER_SIZE);
 
                 // draw deliveries
                 g.setColor(Color.RED);
@@ -151,6 +153,6 @@ public class Neighborhood
 
     public static void drawNeighborhood(String filename)
     {
-        drawNeighborhood(filename, AddressIO.readAddresses(filename));
+        drawNeighborhood(AddressIO.readAddresses(filename));
     }
 }
