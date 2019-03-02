@@ -21,6 +21,9 @@ public class Main {
 
         // Draw the neighborhood with the addresses and distribution center shown
         Neighborhood.drawNeighborhood(AddressIO.FILE, addresses);
+        Neighborhood neighborhood = new Neighborhood();
+        neighborhood.generateNeighborhood(addresses);
+        neighborhood.printNeighborhood();
     }
 }
 

@@ -22,7 +22,7 @@ public class Neighborhood
         grid = new String[201][201];
     }
 
-    public void generateNeighborhood(String filename)
+    public void generateNeighborhood()
     {
         // Location of houses, represented as "o"; crossroads as "-"
         for (int x = 0; x < 201; x++)
@@ -46,26 +46,46 @@ public class Neighborhood
             }
         }
 
+        // Location of the distribution center, represented as "&"
+        grid[91][90] = "& ";
+    }
+
+
+    public void generateNeighborhood(String filename)
+    {
+        generateNeighborhood();
+
         // Read file, create new address and add location to neighborhood map
         try {
             File file = new File(filename);
             Scanner scanner = new Scanner(file);
-            String address[];
             while(scanner.hasNextLine())
             {
                 String line = scanner.nextLine();
-                address = line.split(" ");
+                String address[] = line.split(" ");
                 int houseNum = Integer.parseInt(address[0]);
                 int streetNum = Integer.parseInt(address[2]);
-                if (address[1].compareTo("East") == 0)
-                    add(new Address(houseNum,true, streetNum));
-                else
-                    add(new Address(houseNum,false, streetNum));
+                add(new Address(houseNum,address[1].compareTo("East") == 0, streetNum));
             }
         }
-        catch (IOException e) {
-
+        catch (IOException e)
+        {
+            System.out.println("IOException encountered: " + e);
         }
+
+        // Location of the distribution center, represented as "&"
+        grid[91][90] = "& ";
+
+    }
+
+    public void generateNeighborhood(PriorityQueue<Address> addresses)
+    {
+        generateNeighborhood();
+
+        // Add locations to neighborhood map
+        Iterator<Address> iterator = addresses.iterator();
+        while (iterator.hasNext())
+            add(iterator.next());
 
         // Location of the distribution center, represented as "&"
         grid[91][90] = "& ";
