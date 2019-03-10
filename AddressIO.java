@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class AddressIO
 {
-    public static final String FILE = "Simulation/AddressList100.txt";
+    public static final String FILE = "Project03/AddressList100.txt";
 
     public static PriorityQueue<Address> readAddresses(String filename)
     {
