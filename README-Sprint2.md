@@ -2,7 +2,7 @@ CSCI 234 - Software Engineering
 Spring 2019
 Project04 - Sprint 2
 
-Due: Friday, March ?, at 11:59pm
+Due: Friday, March 22, at 11:59pm
 
 
 Sprint 2 Goal: Create a simulation of the truck moving through the neighborhood and making stops at each order location.
