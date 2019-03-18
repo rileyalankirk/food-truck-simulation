@@ -1,3 +1,5 @@
+
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -7,6 +9,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.PriorityQueue;
 import java.util.Scanner;
+
 
 public class Neighborhood
 {
