@@ -22,15 +22,13 @@ public class AddressIO
                 int houseNum = Integer.parseInt(value[0]);
                 int streetNum = Integer.parseInt(value[2]);
                 String time = value[3];
-                
-                /* 
+                /*
                 value[1].compareTo("East") works fine but useless, (method of camparing string object)
                 but instead we use value[1].equals("East")
                 compareTo will be called once calling priorityQueue.add method
                 and it will call the overrided method campareTo. since priorityqueue is accepting
                 instance of class address
                 */
-                
                 Address newAdd = new Address(houseNum, value[1].equals("East"), streetNum, time);
 
                 priorityQueue.add(newAdd);

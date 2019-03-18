@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
-
-
 public class AddressIO
 {
     public static final String FILE = "./AddressList100.txt";

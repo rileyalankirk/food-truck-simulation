@@ -23,6 +23,10 @@ public class Neighborhood
 
     public void generateNeighborhood()
     {
+
+
+
+
         // Location of houses, represented as "o"; crossroads as "-"
         for (int x = 0; x < 201; x++)
         {

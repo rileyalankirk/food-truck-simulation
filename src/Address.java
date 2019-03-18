@@ -2,7 +2,6 @@ import java.util.Random;
 
 public class Address implements Comparable<Address>
 {
-
     private boolean direction; //TRUE, 1 = east, FALSE, 0 = south
     private int houseNum; //house numbers are multiples of 10, starting at 100.  However, there are no houses at the multiples of 100s, as the first house on each street would be, for example, 110.
     private int streetNum; //street numbers start at 1, and go

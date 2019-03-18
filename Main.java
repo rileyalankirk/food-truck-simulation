@@ -1,10 +1,7 @@
 
-
 import java.util.PriorityQueue;
 
 public class Main {
-
-
     public static void main(String[] args)
     {
         // Write 100 random addresses to a file
