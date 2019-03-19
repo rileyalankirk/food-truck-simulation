@@ -18,7 +18,7 @@ public class Neighborhood
 
     private String[][] grid;
     private static double routeLength = 0;
-    private static short truckFacing = 0; // direction truck is facing -- 0: any, 1: north, 2: east, 3: south, 4: west
+    private static int truckFacing = 0; // direction truck is facing -- 0: any, 1: north, 2: east, 3: south, 4: west
 
     public Neighborhood()
     {
@@ -200,6 +200,7 @@ public class Neighborhood
                         }
                         truckLocation = new Address(x2, y1, time);
                         routeLength += Math.abs(y1 - y2);
+                        truckFacing = (y1 - y2 > 0) ? 3 : 1;
                     }
                     else if (x1 != x2)
                     {
@@ -211,6 +212,7 @@ public class Neighborhood
                         }
                         truckLocation = new Address(x1, y2, time);
                         routeLength += Math.abs(x1 - x2);
+                        truckFacing = (x1 - x2 > 0) ? 2 : 4;
                     }
                 }
                 /*
@@ -232,6 +234,7 @@ public class Neighborhood
                             }
                             truckLocation = new Address(corner + 100, y2, time);
                             routeLength += Math.abs(corner + 100 - x2);
+                            truckFacing = (corner + 100 - x2 > 0) ? 2 : 4;
                         }
                         else
                         {
@@ -243,6 +246,7 @@ public class Neighborhood
                             }
                             truckLocation = new Address(corner, y2, time);
                             routeLength += Math.abs(corner - x2);
+                            truckFacing = (corner - x2 > 0) ? 2 : 4;
                         }
                     }
                     else
@@ -258,6 +262,7 @@ public class Neighborhood
                             }
                             truckLocation = new Address(x2, corner + 100, time);
                             routeLength += Math.abs(corner + 100 - y2);
+                            truckFacing = (corner + 100 - y2 > 0) ? 3 : 1;
                         }
                         else
                         {
@@ -269,6 +274,7 @@ public class Neighborhood
                             }
                             truckLocation = new Address(x2, corner, time);
                             routeLength += Math.abs(corner - y2);
+                            truckFacing = (corner - y2 > 0) ? 3 : 1;
                         }
                     }
                 }
@@ -332,13 +338,17 @@ public class Neighborhood
             {
                 // Move north or south a block, whichever is closer to the final destination
                 routeLength += 1;
-                ret = new Address(truckX, truckY + ((finalY < truckY) ? -100 : 100), time);
+                int block = truckY + ((finalY < truckY) ? -100 : 100);
+                ret = new Address(truckX, block, time);
+                truckFacing = (block - truckY > 0) ? 3 : 1;
             }
             else if (truckFacing % 2 == 1 && verDelta)
             {
                 // Move east or west a block, whichever is closer to the final destination
                 routeLength += 1;
-                ret = new Address(truckX + ((finalX < truckX) ? -100 : 100), truckY, time);
+                int block = truckX + ((finalX < truckX) ? -100 : 100);
+                ret = new Address(block, truckY, time);
+                truckFacing = (block - truckX > 0) ? 2 : 4;
             }
             else
             {
@@ -350,14 +360,14 @@ public class Neighborhood
             if (truckFacing % 2 == 1) // Facing north or south
             {
                 int corner = truckY - (truckY % 100); // nearest corner location
-                if (truckFacing == 3) corner += 100; // move south a block so the truck moves south
+                if (truckFacing == 3) corner += 100; // move south a block instead of north
                 routeLength += Math.abs(corner - truckY);
                 ret = new Address(truckX, corner, time);
             }
             else // Facing east or west
             {
                 int corner = truckX - (truckX % 100); // nearest corner location
-                if (truckFacing == 2) corner += 100; // move east a block so the truck moves east
+                if (truckFacing == 2) corner += 100; // move east a block instead of west
                 routeLength += Math.abs(corner - truckX);
                 ret = new Address(corner, truckY, time);
             }
