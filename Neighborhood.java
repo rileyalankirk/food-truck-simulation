@@ -3,11 +3,19 @@ package Simulation;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
+
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.PriorityQueue;
+import java.util.Scanner;
 
 public class Neighborhood
 {
@@ -17,6 +25,11 @@ public class Neighborhood
     static final int BLOCK_WIDTH = 45;
     static final double RATIO_ADDRESSES_TO_MAP = MAP_WIDTH / 2000.0;
     public static ArrayList<Address> instructions = new ArrayList<>();
+    public static double truckX = (900 - MARKER_SIZE) * RATIO_ADDRESSES_TO_MAP;
+    public static double truckY = (910 - MARKER_SIZE) * RATIO_ADDRESSES_TO_MAP;
+    public static Address currentTarget = null;
+    public static double targetX = 718.0;
+    public static double targetY = 722.0;
 
     private String[][] grid;
     private static double routeLength = 0;
@@ -146,11 +159,74 @@ public class Neighborhood
                     g.fillOval((int)(RATIO_ADDRESSES_TO_MAP*(x - MARKER_SIZE)), (int)(RATIO_ADDRESSES_TO_MAP*(y - MARKER_SIZE)), MARKER_SIZE, MARKER_SIZE);
 
                 }
+                
+                g.setColor(Color.BLACK);
+                g.fillRect((int)(truckX), (int)(truckY), MARKER_SIZE, MARKER_SIZE);
             }
         };
         map.getContentPane().add(canvas);
         map.repaint();
+        
+        //Getting the first instruction from the list, if there is one there
+        if(!instructions.isEmpty()) {
+        	
+        	currentTarget = instructions.get(0);
+        	instructions.remove(0);
+        	double x = (currentTarget.isDirection()) ? currentTarget.getHouseNum() : currentTarget.getStreetNum() * 100;
+            double y = (!currentTarget.isDirection()) ? currentTarget.getHouseNum() : currentTarget.getStreetNum() * 100;
+            targetX = (int)(RATIO_ADDRESSES_TO_MAP*(x - MARKER_SIZE));
+            targetY = (int)(RATIO_ADDRESSES_TO_MAP*(y - MARKER_SIZE));
+            
+            System.out.println(currentTarget.toString() + " | " + targetX + ", " + targetY);
+        	
+        }
+        
+        //Animation handling done here
+        Timer animationTimer = new Timer(1, new ActionListener() {
+        	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				//If we have a target, continue
+				if(currentTarget != null) {
+					
+					//If we are not aligned on the y-axis, move along that axis
+                    if(Math.abs(targetY - truckY) > 0.1) {
 
+                    	truckY += Math.signum(targetY - truckY) * 0.1;
+                    
+                    //If we are aligned on the y-axis, but are not aligned on the x-axis, mvoe along the x-axis
+                    } else if(Math.abs(targetX - truckX) > 0.1) {
+
+                    	truckX += Math.signum(targetX - truckX) * 0.1;
+                    
+                    //If we're at the destination, get a new address from the list of locations
+                    } else if(!instructions.isEmpty()) {
+
+                    	currentTarget = instructions.get(0);
+                    	instructions.remove(0);
+                    	
+                    	double x = (currentTarget.isDirection()) ? currentTarget.getHouseNum() : currentTarget.getStreetNum() * 100;
+                        double y = (!currentTarget.isDirection()) ? currentTarget.getHouseNum() : currentTarget.getStreetNum() * 100;
+                        targetX = (int)(RATIO_ADDRESSES_TO_MAP*(x - MARKER_SIZE));
+                        targetY = (int)(RATIO_ADDRESSES_TO_MAP*(y - MARKER_SIZE));
+//                        System.out.println(currentTarget.toString());
+                                            
+                    } else {
+
+                    	currentTarget = null;
+                    	
+                    }
+                    
+                    map.repaint();
+                    
+				}
+				
+			}	
+        });
+        
+        animationTimer.start();
+        
         map.setTitle("Neighborhood");
         map.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         map.setSize(MAP_WIDTH - 44, MAP_HEIGHT - 10);

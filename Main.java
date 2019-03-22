@@ -18,7 +18,6 @@ public class Main
         PriorityQueue<Address> addresses = AddressIO.readAddresses(FILE);
 
         // Draw the neighborhood with the addresses and distribution center shown
-        Neighborhood.drawNeighborhood(addresses);
         Neighborhood neighborhood = new Neighborhood();
         neighborhood.generateNeighborhood(addresses);
         // neighborhood.printNeighborhood();
@@ -41,6 +40,8 @@ public class Main
             System.out.println("UTurnException occurred.");
         }
         System.out.println("Route length: " + neighborhood.getRouteLength());
+        
+        Neighborhood.drawNeighborhood(addresses);
     }
 }
 
