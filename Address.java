@@ -1,3 +1,6 @@
+package Simulation;
+
+
 import java.util.Random;
 
 public class Address implements Comparable<Address>
@@ -107,7 +110,7 @@ public class Address implements Comparable<Address>
     {
         int hours = (int)(time / 100.0);
         int minutes = time % 100;
-        return ((hours > 12) ? (hours - 12) : hours) + ":" + ((minutes < 10) ? "0" : "") + minutes + ((hours > 12) ? "PM" : "AM");
+        return ((hours > 12) ? (hours - 12) : hours) + ":" + ((minutes < 10) ? "0" : "") + minutes;
     }
 
     public boolean isDirection()

@@ -1,3 +1,6 @@
+package Simulation;
+
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -8,14 +11,16 @@ import java.util.*;
 
 public class Neighborhood
 {
-    static final int HEIGHT = 782, WIDTH = 761;
+    static final int MAP_HEIGHT = 900;
+    static final int MAP_WIDTH = 900;
     static final int MARKER_SIZE = 5;
-    static final int BLOCK_WIDTH = 40;
+    static final int BLOCK_WIDTH = 45;
+    static final double RATIO_ADDRESSES_TO_MAP = MAP_WIDTH / 2000.0;
     public static ArrayList<Address> instructions = new ArrayList<>();
 
     private String[][] grid;
     private static double routeLength = 0;
-    private static int truckFacing = 0; // direction truck is facing -- 0: any, 1: north, 2: east, 3: south, 4: west
+    private static short truckFacing = 0; // direction truck is facing -- 0: any, 1: north, 2: east, 3: south, 4: west
 
     public Neighborhood()
     {
@@ -123,9 +128,12 @@ public class Neighborhood
                 for (int x = 0; x < 19; x++)
                     for (int y = 0; y < 19; y++)
                         g.drawRect(BLOCK_WIDTH * x, BLOCK_WIDTH * y, BLOCK_WIDTH, BLOCK_WIDTH);
+
                 // draw distribution center
-                g.setColor(Color.GREEN);
-                g.fillRect(9*BLOCK_WIDTH - 2, 9*BLOCK_WIDTH + 2, MARKER_SIZE, MARKER_SIZE);
+                g.setColor(Color.BLUE);
+                double x = Address.DISTRIBUTION_STREETNUM * 100.0;
+                double y = Address.DISTRIBUTION_HOUSENUM;
+                g.fillRect((int)(RATIO_ADDRESSES_TO_MAP*(x - MARKER_SIZE)), (int)(RATIO_ADDRESSES_TO_MAP*(y - MARKER_SIZE)), MARKER_SIZE, MARKER_SIZE);
 
                 // draw deliveries
                 g.setColor(Color.RED);
@@ -133,20 +141,21 @@ public class Neighborhood
                 while (iterator.hasNext())
                 {
                     Address address = iterator.next();
-                    double x = (address.isDirection()) ? address.getHouseNum() / 100.0 : address.getStreetNum();
-                    double y = (!address.isDirection()) ? address.getHouseNum() / 100.0 : address.getStreetNum();
-                    g.fillOval(((int) x)*BLOCK_WIDTH - 2 + (int)(40.0 * (x % 1)), ((int) y)*BLOCK_WIDTH - 2 + (int)(40.0 * (y % 1)), MARKER_SIZE, MARKER_SIZE);
+                    x = (address.isDirection()) ? address.getHouseNum() : address.getStreetNum() * 100;
+                    y = (!address.isDirection()) ? address.getHouseNum() : address.getStreetNum() * 100;
+                    g.fillOval((int)(RATIO_ADDRESSES_TO_MAP*(x - MARKER_SIZE)), (int)(RATIO_ADDRESSES_TO_MAP*(y - MARKER_SIZE)), MARKER_SIZE, MARKER_SIZE);
+
                 }
             }
         };
         map.getContentPane().add(canvas);
         map.repaint();
 
-        map.setTitle("Map");
+        map.setTitle("Neighborhood");
         map.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        map.setSize(WIDTH, HEIGHT);
+        map.setSize(MAP_WIDTH - 44, MAP_HEIGHT - 10);
         map.setResizable(false);
-        map.setLocationRelativeTo(null); // center on screen
+        map.setLocationRelativeTo(null); // center the map
         map.setVisible(true);
     }
 
@@ -197,7 +206,6 @@ public class Neighborhood
                         }
                         truckLocation = new Address(x2, y1, time);
                         routeLength += Math.abs(y1 - y2);
-                        truckFacing = (y1 - y2 > 0) ? 3 : 1;
                     }
                     else if (x1 != x2)
                     {
@@ -209,7 +217,6 @@ public class Neighborhood
                         }
                         truckLocation = new Address(x1, y2, time);
                         routeLength += Math.abs(x1 - x2);
-                        truckFacing = (x1 - x2 > 0) ? 2 : 4;
                     }
                 }
                 /*
@@ -231,7 +238,6 @@ public class Neighborhood
                             }
                             truckLocation = new Address(corner + 100, y2, time);
                             routeLength += Math.abs(corner + 100 - x2);
-                            truckFacing = (corner + 100 - x2 > 0) ? 2 : 4;
                         }
                         else
                         {
@@ -243,7 +249,6 @@ public class Neighborhood
                             }
                             truckLocation = new Address(corner, y2, time);
                             routeLength += Math.abs(corner - x2);
-                            truckFacing = (corner - x2 > 0) ? 2 : 4;
                         }
                     }
                     else
@@ -259,7 +264,6 @@ public class Neighborhood
                             }
                             truckLocation = new Address(x2, corner + 100, time);
                             routeLength += Math.abs(corner + 100 - y2);
-                            truckFacing = (corner + 100 - y2 > 0) ? 3 : 1;
                         }
                         else
                         {
@@ -271,7 +275,6 @@ public class Neighborhood
                             }
                             truckLocation = new Address(x2, corner, time);
                             routeLength += Math.abs(corner - y2);
-                            truckFacing = (corner - y2 > 0) ? 3 : 1;
                         }
                     }
                 }
@@ -335,17 +338,13 @@ public class Neighborhood
             {
                 // Move north or south a block, whichever is closer to the final destination
                 routeLength += 1;
-                int block = truckY + ((finalY < truckY) ? -100 : 100);
-                ret = new Address(truckX, block, time);
-                truckFacing = (block - truckY > 0) ? 3 : 1;
+                ret = new Address(truckX, truckY + ((finalY < truckY) ? -100 : 100), time);
             }
             else if (truckFacing % 2 == 1 && verDelta)
             {
                 // Move east or west a block, whichever is closer to the final destination
                 routeLength += 1;
-                int block = truckX + ((finalX < truckX) ? -100 : 100);
-                ret = new Address(block, truckY, time);
-                truckFacing = (block - truckX > 0) ? 2 : 4;
+                ret = new Address(truckX + ((finalX < truckX) ? -100 : 100), truckY, time);
             }
             else
             {
@@ -357,14 +356,14 @@ public class Neighborhood
             if (truckFacing % 2 == 1) // Facing north or south
             {
                 int corner = truckY - (truckY % 100); // nearest corner location
-                if (truckFacing == 3) corner += 100; // move south a block instead of north
+                if (truckFacing == 3) corner += 100; // move south a block so the truck moves south
                 routeLength += Math.abs(corner - truckY);
                 ret = new Address(truckX, corner, time);
             }
             else // Facing east or west
             {
                 int corner = truckX - (truckX % 100); // nearest corner location
-                if (truckFacing == 2) corner += 100; // move east a block instead of west
+                if (truckFacing == 2) corner += 100; // move east a block so the truck moves east
                 routeLength += Math.abs(corner - truckX);
                 ret = new Address(corner, truckY, time);
             }
