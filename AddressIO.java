@@ -10,8 +10,6 @@ import java.util.Scanner;
 
 public class AddressIO
 {
-    public static final int NUM_ADDRESSES = 100;
-
     public static PriorityQueue<Address> readAddresses(String filename)
     {
         PriorityQueue<Address> addresses = new PriorityQueue<>();
@@ -42,7 +40,7 @@ public class AddressIO
         {
             BufferedWriter writer = new BufferedWriter(new FileWriter(new File(filename)));
             for (int i = 0; i < numberAddresses; i++)
-                writer.write((new Address(NUM_ADDRESSES)).toString() + "\n");
+                writer.write((new Address(numberAddresses)).toString() + "\n");
             writer.flush();
             writer.close();
         }
