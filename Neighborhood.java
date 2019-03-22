@@ -30,10 +30,10 @@ public class Neighborhood
     public static Address currentTarget = null;
     public static double targetX = 718.0;
     public static double targetY = 722.0;
+    private static double routeLength = 0;
+    private static int truckFacing = 0; // direction truck is facing -- 0: any, 1: north, 2: east, 3: south, 4: west
 
     private String[][] grid;
-    private static double routeLength = 0;
-    private static short truckFacing = 0; // direction truck is facing -- 0: any, 1: north, 2: east, 3: south, 4: west
 
     public Neighborhood()
     {

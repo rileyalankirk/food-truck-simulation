@@ -7,7 +7,7 @@ public class Address implements Comparable<Address>
 {
 
     private boolean direction;
-    private int houseNum;      // House numbers are multiples of 10: 10, 20,...,90, 110, 120,..., 190, 210,...., 1990
+    private int houseNum;      // House numbers are multiples of 10: 10, 20,...,90, 110, 120,..., 190, 210,...., 1890
     private int streetNum;     // Street numbers are 0 - 19
     private int time;
     private static int lastTime = 0;
@@ -110,7 +110,7 @@ public class Address implements Comparable<Address>
     {
         int hours = (int)(time / 100.0);
         int minutes = time % 100;
-        return ((hours > 12) ? (hours - 12) : hours) + ":" + ((minutes < 10) ? "0" : "") + minutes;
+        return ((hours > 12) ? (hours - 12) : hours) + ":" + ((minutes < 10) ? "0" : "") + minutes + ((time > 1159) ? "PM" : "AM");
     }
 
     public boolean isDirection()
@@ -151,7 +151,7 @@ public class Address implements Comparable<Address>
     @Override
     public String toString()
     {
-        return houseNum + " " + directionToString() + " " + streetNum + " " + timeToString();
+        return houseNum + " " + directionToString() + " " + streetNum + " " + time;
     }
 
     @Override

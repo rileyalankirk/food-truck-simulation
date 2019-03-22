@@ -20,10 +20,7 @@ public class AddressIO
             {
                 String line = scanner.nextLine();
                 String[] values = line.split(" "); // [0]: house number [1]: direction [2]: street number [3]: time
-                String[] time_values = values[3].split(":");  // [0]: hours [1]: minutes
-                int hours = (Integer.parseInt(time_values[0]) + ((Integer.parseInt(time_values[0]) < 10) ? 12 : 0)) * 100;
-                int minutes = Integer.parseInt(time_values[1]);
-                addresses.add(new Address(Integer.parseInt(values[0]), values[1].equals("East"), Integer.parseInt(values[2]), hours + minutes));
+                addresses.add(new Address(Integer.parseInt(values[0]), values[1].equals("East"), Integer.parseInt(values[2]), Integer.parseInt(values[3]));
             }
         }
         catch (IOException e)
