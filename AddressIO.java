@@ -20,7 +20,7 @@ public class AddressIO
             {
                 String line = scanner.nextLine();
                 String[] values = line.split(" "); // [0]: house number [1]: direction [2]: street number [3]: time
-                addresses.add(new Address(Integer.parseInt(values[0]), values[1].equals("East"), Integer.parseInt(values[2]), Integer.parseInt(values[3]));
+                addresses.add(new Address(Integer.parseInt(values[0]), values[1].equals("East"), Integer.parseInt(values[2]), Integer.parseInt(values[3])));
             }
         }
         catch (IOException e)
