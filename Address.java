@@ -1,189 +1,109 @@
+/*
+ * The Address class is a simple class that encapsulates a x and y value to represent a location within a neighborhood.
+ * The static variable blocks tells us the number of blocks in the neighborhood.
+ * Every 100 units is a new street and houses are multiples of 10 between streets
+ */
+
+
 package Simulation;
 
 
 import java.util.Random;
 
-public class Address implements Comparable<Address>
+public class Address
 {
+    // Class variable
+    private static int blocks = 1; // The number of blocks for the neighborhood
 
-    private boolean direction;
-    private int houseNum;      // House numbers are multiples of 10: 10, 20,...,90, 110, 120,..., 190, 210,...., 1890
-    private int streetNum;     // Street numbers are 0 - 19
-    private int time;
-    private static int lastTime = 0;
-    public static final int MINIMUM_TIME_DIFFERENCE = 4;
-    public static final int DISTRIBUTION_HOUSENUM = 910;
-    public static final int DISTRIBUTION_STREETNUM = 9;
-    public static final boolean EAST = true;
-    public static final boolean SOUTH = false;
+    // Instance variables
+    private int x, y;
 
-    // Creates a random address; pass the number of random addresses that you will be creating to normalize the time.
-    protected Address(int numAddresses)
+    // Creates a random address based on the number of blocks in the neighborhood
+    protected Address()
     {
-        direction = (new Random()).nextBoolean();
-        houseNum = getRandomHouseNum();
-        streetNum = getRandomStreetNum();
-        time = getRandomTime(numAddresses, MINIMUM_TIME_DIFFERENCE);
-    }
-
-    protected Address(int houseNum, boolean direction, int streetNum, int time)
-    {
-        if(houseNum >= 0 && houseNum < 2000)
-            this.houseNum = houseNum;
-        else
-            this.houseNum = getRandomHouseNum();
-
-        if(streetNum >= 0 && streetNum < 20)
-            this.streetNum = streetNum;
-        else
-            this.streetNum = getRandomStreetNum();
-
-        this.direction = direction;
-        this.time = time;
-    }
-
-    protected Address(int x, int y, int time)
-    {
-        if (x % 100 == 0)
+        // Make one of the values a street number (blocks) and the other a house number (blocks - 1)
+        if ((new Random()).nextBoolean())
         {
-            direction = SOUTH;
-            houseNum = y;
-            streetNum = x / 100;
+            x = 100*(getRandomCoordinate(blocks)/100); // Convert the coordinate to a block value
+            y = getRandomCoordinate(blocks - 1);
         }
         else
         {
-            direction = EAST;
-            houseNum = x;
-            streetNum = y / 100;
+            x = getRandomCoordinate(blocks - 1);
+            y = 100*(getRandomCoordinate(blocks)/100); // Convert the coordinate to a block value
         }
-        this.time = time;
     }
 
-    // Returns a random house number between 10 and 1990, where the values follow the pattern 10, 20,.., 90, 110, 120,.., 190, 210,....
-    public int getRandomHouseNum()
+    protected Address(int x, int y)
+    {
+        if((x >= 100 && x <= (blocks*100)) && (y >= 100 && y <= (blocks*100)))
+        {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    private int getRandomCoordinate(int numBlocks)
     {
         Random rand = new Random();
-        return (rand.nextInt(20) * 100) + ((rand.nextInt(9) + 1) * 10);
+        return (rand.nextInt(numBlocks) + 1)*100 + (rand.nextInt(9) + 1)*10;
     }
 
-    // Returns a random street number from 0 to 19
-    public int getRandomStreetNum()
+    public int getX()
     {
-        return (new Random()).nextInt(20);
+        return x;
     }
 
-    /*
-     * Returns a random time in military form in the range 10 AM - 7 PM (1000-1900) which gives us 600 minutes to work with.
-     * The paramater normalizer decides the increments of time. If you want up to 100 increments, pass 100 each time.
-     * The paramater min sets the minimum value that the times will be offset by
-     */
-    public int getRandomTime(int normalizer, int min)
+    public int getY()
     {
-        // Random time based off the last time used
-        if (lastTime == 0)
-        {
-            lastTime = 1000;
-            return lastTime;
-        }
-        int increment = (new Random()).nextInt((600 / normalizer) - min) + min; // Normalize the 600 minutes to the increment needed
-        int time = (int)(lastTime / 100.0) * 60 + (lastTime % 100) + increment;    // Convert time sum to minutes
-        lastTime = ((int)(time / 60.0) * 100) + time % 60;                         // Convert time to military time
-        if (lastTime >= 1900)
-        {
-            lastTime = 1000;
-            return 1900;
-        }
-        return lastTime;
-
-        // Completely random time
-        /*
-        Random rand = new Random();
-        int hours = (rand.nextInt(10) + 10) * 100; // 1000 - 1900
-        int minutes = (hours == 19) ? 0 : rand.nextInt(60); // 0 - 59
-        int totalTime = hours + minutes;
-        return (totalTime >= 1900) ? 1900 : totalTime;
-        */
+        return y;
     }
 
-    // For normal looking time
-    public String timeToString()
+    public int getHouseNumber()
     {
-        int hours = (int)(time / 100.0);
-        int minutes = time % 100;
-        return ((hours > 12) ? (hours - 12) : hours) + ":" + ((minutes < 10) ? "0" : "") + minutes + ((time > 1159) ? "PM" : "AM");
+        return (x % 100 != 0) ? x : y;
     }
 
-    public boolean isDirection()
+    public int getStreetNumber()
     {
-        return direction;
+        return ((x % 100 != 0) ? y : x) / 100;
     }
 
-    public String directionToString()
+    public char getDirection()
     {
-        if (!direction) return "South";
-        return "East";
+        return (x % 100 != 0) ? 'E' : 'S';
     }
 
-    public int getHouseNum()
+    public static void setBlocks(int blocks)
     {
-        return houseNum;
+        if (blocks > 0)
+            Address.blocks = blocks;
     }
 
-    public int getStreetNum()
+    public void setX(int x)
     {
-        return streetNum;
+        this.x = x;
     }
 
-    public int getTime()
+    public void setY(int y)
     {
-        return time;
-    }
-
-    // Distance to another address
-    public double distanceTo(Address address)
-    {
-        if (direction)
-            return Math.abs(address.getHouseNum() - houseNum) + Math.abs(address.getStreetNum() * 100);
-
-        return Math.abs(address.getHouseNum() - (streetNum * 100)) + Math.abs((address.getStreetNum() * 100) - houseNum);
+        this.y = y;
     }
 
     @Override
     public String toString()
     {
-        return houseNum + " " + directionToString() + " " + streetNum + " " + time;
-    }
-
-    @Override
-    public int compareTo(Address o)
-    {
-        if (getTime() < o.getTime())
-            return -1;
-
-        if (getTime() > o.getTime())
-            return 1;
-
-        return 0;
-
-        // Comparable by distance from distribution center
-        /*
-        Address distCenter = new Address(DISTRIBUTION_HOUSENUM, SOUTH, DISTRIBUTION_STREETNUM);
-        double distanceToDC = distanceTo(distCenter);
-        double distanceToDCfromO = o.distanceTo(distCenter);
-        if (distanceToDC < distanceToDCfromO)
-            return -1;
-
-        if (distanceToDC > distanceToDCfromO)
-            return 1;
-
-        return 0;
-         */
+        return x + "," + y;
     }
 
     @Override
     public boolean equals(Object obj)
     {
-        Address o = (Address) obj;
-        return houseNum == o.houseNum && streetNum == o.streetNum && direction == o.direction && time == o.time;
+        if (obj instanceof Address)
+        {
+            Address o = (Address) obj;
+            return x == o.x && y == o.y;
+        }
+        return false;
     }
 }
