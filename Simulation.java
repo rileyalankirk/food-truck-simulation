@@ -81,7 +81,6 @@ public class Simulation
         routeMethod = rm;
         Route route = routeMethod.calculateRoute(orders, distributionCenter);
         commands = route.getCommands();
-        System.out.println(commands);
         return route;
     }
 
@@ -97,7 +96,7 @@ public class Simulation
         Address.setBlocks(blocks);
 
         // Write the specified number of random orders to a file
-        //Order.writeOrders(FILE, numAddresses);
+        Order.writeOrders(FILE, numAddresses);
 
         // Read the orders from the file and place them in a PriorityQueue. Instantiate deliveredOrders as an empty list
         orders = Order.readOrders(FILE);
