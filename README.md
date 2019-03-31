@@ -2,7 +2,7 @@ CSCI 234 - Software Engineering
 Spring 2019
 Project03
 
-Project03 simulates a food truck moving through a neighborhood delivering random orders. The current model permits for the comparison of different route calculations which then can be compared to discover the cost-effectiveness of each route.
+Project03 simulates a food truck moving through a neighborhood delivering random orders. The current model permits for the comparison of different route calculations to discover the cost-effectiveness of each route.
 
 
 The file structure is as follows:
