@@ -2,20 +2,12 @@ CSCI 234 - Software Engineering
 Spring 2019
 Project03
 
-Due: Friday, February 29, at 11:59pm
+Project03 simulates a food truck moving through a neighborhood delivering random orders. The current model permits for the comparison of different route calculations which then can be compared to discover the cost-effectiveness of each route.
 
-Design (UML) and code(Java) programs that will: 
-1. generate random addresses in our Sandwich Truck’s neighborhood and save them to a file. Create a file with 100 random addresses.
-
-2. read the file of random addresses and insert them into a priority queue, where the priority is the distance from current truck location to the address. 
-Assume truck at a fixed location in the middle of the neighborhood (distribution center).
-
-3. be able to print a representation of the neighborhood with delivery locations indicated.
-
-- Client will describe the details of the neighborhood.
-
-- Update the requirements document to include this “story".
-
-- Keep a record of the activities assigned to each team member and the amount of time the team member spent on the activity.
-
-- Each team member will fork the intial repository from the instructor and add the instructor as a collaborator.
+The file structure is as follows:
+* files
+	* The files directory stores all the files that the simulation will access, as expected
+* Simulation
+	* All Java source code files that generate the simulation are stored in the Simulation package
+* Sprint (Requirements, Backlog, and UML)
+	* All requirements, backlog, and UML diagrams from each sprint are stored within this directory

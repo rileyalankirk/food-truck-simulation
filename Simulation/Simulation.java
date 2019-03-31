@@ -21,8 +21,8 @@ import java.util.Scanner;
 public class Simulation
 {
     // Constants
-    private static final String FILE = "OrderList.txt";
-    private static final String CONFIG_FILE = "config.txt";
+    private static final String FILE = "./files/OrderList.txt";
+    private static final String CONFIG_FILE = "./files/config.txt";
     private static final int    NUM_VALUES = 8;
 
     // Config variables
