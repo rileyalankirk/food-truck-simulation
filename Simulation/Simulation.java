@@ -103,7 +103,15 @@ public class Simulation
         deliveredOrders = new ArrayList<Order>();
 
         // Create the route the truck will follow and calculate how much time and distance the trip will take
-        Route route = updateRoute(new NoUturnRoute());
+        String[] possibleValues = {"No U-turn Route", "Only Right-turn Route"};
+        String selectedValue = (String) JOptionPane.showInputDialog(null, "Choose a Route",
+                "Route Choice", JOptionPane.INFORMATION_MESSAGE, null, possibleValues, possibleValues[0]);
+        Route route;
+        if (selectedValue.equals(possibleValues[0]))
+            route = updateRoute(new NoUturnRoute());
+        else
+            route = updateRoute(new OnlyRightTurnRoute());
+
         System.out.println("Route distance: " + route.getDistance());
         System.out.println("Route time: " + route.getTime());
 
