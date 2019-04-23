@@ -2,6 +2,8 @@
  * The Simulation class contains the main method that runs the simulation. This class loads the config file, creates
  * random orders, places the orders into a PriorityQueue, converts the orders into a list of commands that are passed
  * to the GUI that uses the commands to animate itself. The GUI displays a neighborhood that the orders are coming from.
+ * Kimberly wrote the code that prints the time.
+ * Riley wrote the rest of the code.
  */
 
 
