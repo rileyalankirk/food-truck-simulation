@@ -113,7 +113,35 @@ public class Simulation
             route = updateRoute(new OnlyRightTurnRoute());
 
         System.out.println("Route distance: " + route.getDistance());
-        System.out.println("Route time: " + route.getTime());
+        
+        //Print the time to the standard output
+        int routeTimeMinutes = route.getTime() / 60;
+        if(routeTimeMinutes >= 60){
+            routeTimeHours = routeTimeMinutes / 60;
+        }
+        else {
+            routeTimeHours = 0;
+        }
+        int routeTimeSeconds = route.getTime() % 60;
+        //Checking if there are any hours
+        if(routeTimeHours != 0) {
+            //Check if the hours is = 1, if so then print "hour" instead of "hours"
+            if(routeTimeHours == 1){
+                System.out.println("Route time = " + routeTimeHours + " hour, " + routeTimeMinutes + " minutes, and " + routeTimeSeconds + " Seconds");
+
+            }
+            //Other wise print "hours"
+            else {
+                System.out.println("Route time = " + routeTimeHours + " hours, " + routeTimeMinutes + " minutes, and " + routeTimeSeconds + " Seconds");
+            }
+        }
+        //If not, print the time without the hours
+        else if(routeTimeSeconds <= 9){
+            System.out.println("Route time = " + routeTimeMinutes + " minutes and 0" + routeTimeSeconds + " seconds");
+        }
+        else{
+            System.out.println("Route time = " + routeTimeMinutes + " minutes and " + routeTimeSeconds + " seconds");
+        }
 
         // Draw the neighborhood with the addresses of the orders, distribution center, and truck shown
         NeighborhoodFrame neighborhood = new NeighborhoodFrame(guiSize, blocks, distributionCenter);
