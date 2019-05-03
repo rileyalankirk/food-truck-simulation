@@ -9,17 +9,22 @@
 package Simulation;
 
 
-public class Truck
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class Truck implements truckGenerator
 {
     private Address   address;
     private double    x, y;
     private Direction direction;
+    private ArrayList<Observer> observers;
 
     Truck(double x, double y,  Direction direction)
     {
         this.x = x;
         this.y = y;
         this.direction = direction;
+        this.observers = new ArrayList();
     }
 
     Truck(Address address, boolean moving, Direction direction)
@@ -85,4 +90,24 @@ public class Truck
     {
         this.direction = direction;
     }
+
+    @Override
+    public void registerObserver(Observer display) {
+
+        observers.add(display);
+    }
+
+    @Override
+    public void removeObserver(Observer display) {
+        observers.remove(display);
+    }
+
+
+    @Override
+    public void notifyObserver(Order location) throws IOException {
+        for (Observer display : observers) {
+            display.update(location);
+        }
+    }
+
 }

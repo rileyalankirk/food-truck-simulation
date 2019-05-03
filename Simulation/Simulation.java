@@ -35,6 +35,7 @@ public class Simulation
     private static int   minTime, maxTime;
     private static int   minTimeBetweenOrders;
 
+
     // Class variables
     private static PriorityQueue<Order> orders;
     private static ArrayList<Order>     deliveredOrders;
@@ -148,9 +149,14 @@ public class Simulation
         }
 
         // Draw the neighborhood with the addresses of the orders, distribution center, and truck shown
+
         NeighborhoodFrame neighborhood = new NeighborhoodFrame(guiSize, blocks, distributionCenter);
         // Make the neighborhood visible
-        neighborhood.update(orders, deliveredOrders);
+        //TODO
+        //  Truck truck = new Truck();
+//         GUI gui = new GUI(neighborhood);
+//         truck.registerObserver(gui);
+        //neighborhood.update(orders, deliveredOrders);
         neighborhood.setVisible(true);
 
         //Getting the first command from the list if there is one
@@ -209,6 +215,13 @@ public class Simulation
                     neighborhood.setTruck(truck);
 
                     neighborhood.update(orders, deliveredOrders);
+                    //TODO
+//                    try {
+//                        while(!commands.isEmpty())
+//                        truck.notifyObserver(orders.peek());
+//                    } catch (IOException ex) {
+//                        ex.printStackTrace();
+//                    }
                 }
             }
         });
