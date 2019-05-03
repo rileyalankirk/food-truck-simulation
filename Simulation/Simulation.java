@@ -102,6 +102,7 @@ public class Simulation
 
         // Read the orders from the file and place them in a PriorityQueue. Instantiate deliveredOrders as an empty list
         orders = Order.readOrders(FILE);
+        orders.add(new Order(new Address(distributionCenter.x, distributionCenter.y), 1901, null));
         deliveredOrders = new ArrayList<Order>();
 
         // Create the route the truck will follow and calculate how much time and distance the trip will take
@@ -118,6 +119,7 @@ public class Simulation
         
         //Print the time to the standard output
         int routeTimeMinutes = route.getTime() / 60;
+        int routeTimeHours;
         if(routeTimeMinutes >= 60){
             routeTimeHours = routeTimeMinutes / 60;
         }
