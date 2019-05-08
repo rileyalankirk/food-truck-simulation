@@ -1,6 +1,7 @@
 /*
  * The Food class handles the functionality of food in this simulation.
  * It has one attribute: a name.
+ * Authors: Originally written by Abdullah.
  */
 
 

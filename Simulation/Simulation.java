@@ -117,36 +117,28 @@ public class Simulation
             route = updateRoute(new OnlyRightTurnRoute());
 
         System.out.println("Route distance: " + route.getDistance());
+        System.out.println(route.getTime());
         
         //Print the time to the standard output
-        int routeTimeMinutes = route.getTime() / 60;
-        int routeTimeHours;
-        if(routeTimeMinutes >= 60){
-            routeTimeHours = routeTimeMinutes / 60;
-        }
-        else {
-            routeTimeHours = 0;
-        }
-        int routeTimeSeconds = route.getTime() % 60;
+        int routeTimeHours = route.getTime() / 60;
+        int routeTimeMinutes = route.getTime() % 60;
         //Checking if there are any hours
         if(routeTimeHours != 0) {
             //Check if the hours is = 1, if so then print "hour" instead of "hours"
             if(routeTimeHours == 1){
-                System.out.println("Route time = " + routeTimeHours + " hour, " + routeTimeMinutes + " minutes, and " + routeTimeSeconds + " Seconds");
+                System.out.println("Route time = " + routeTimeHours + " hour, " + routeTimeMinutes + " minutes");
 
             }
             //Other wise print "hours"
             else {
-                System.out.println("Route time = " + routeTimeHours + " hours, " + routeTimeMinutes + " minutes, and " + routeTimeSeconds + " Seconds");
+                System.out.println("Route time = " + routeTimeHours + " hours, " + routeTimeMinutes + " minutes");
             }
         }
         //If not, print the time without the hours
-        else if(routeTimeSeconds <= 9){
-            System.out.println("Route time = " + routeTimeMinutes + " minutes and 0" + routeTimeSeconds + " seconds");
+        else {
+            System.out.println("Route time = " + routeTimeMinutes + " minutes");
         }
-        else{
-            System.out.println("Route time = " + routeTimeMinutes + " minutes and " + routeTimeSeconds + " seconds");
-        }
+
 
         // Draw the neighborhood with the addresses of the orders, distribution center, and truck shown
 
@@ -156,7 +148,7 @@ public class Simulation
         //  Truck truck = new Truck();
 //         GUI gui = new GUI(neighborhood);
 //         truck.registerObserver(gui);
-        //neighborhood.update(orders, deliveredOrders);
+        neighborhood.update(orders, deliveredOrders);
         neighborhood.setVisible(true);
 
         //Getting the first command from the list if there is one
@@ -178,8 +170,15 @@ public class Simulation
                 if (currentCommand != null)
                 {
                     // If simulation is done, do nothing
-                    if (commands.isEmpty() && currentCommand.getLength() < 1)
+                    if (commands.isEmpty() && currentCommand.getLength() < 1) {
+                        try {
+                            Thread.sleep(5000);
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+                        System.exit(0);
                         return;
+                    }
 
                     // If the command is over, get the next command; otherwise decrement the length by 1
                     if (currentCommand.getLength() < 1)

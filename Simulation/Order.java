@@ -2,6 +2,7 @@
  * The Order class is has an address value, time, and list of items ordered. The static values addresses, minTimeDiff,
  * minTime, and maxTime are values set by our config file for different calculations. lastTime allows us to keep track
  * of the last time used for our next random time calculation.
+ * Authors: Originally written by Riley.
  */
 
 

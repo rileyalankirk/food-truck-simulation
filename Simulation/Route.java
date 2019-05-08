@@ -1,3 +1,7 @@
+/*
+ * Authors: Originally written by Riley.
+ */
+
 package Simulation;
 
 import java.util.ArrayList;

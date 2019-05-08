@@ -1,5 +1,6 @@
 /*
  * A Route that has no U-turns in it.
+ * Authors: Riley originally wrote, but Kimberly fixed some bugs.
  */
 
 
@@ -32,8 +33,7 @@ public class NoUturnRoute implements RouteMethod
             truck.setDirection(Direction.SOUTH);
 
         Iterator<Order> iterator = orders.iterator();
-        while (iterator.hasNext())
-        {
+        while (iterator.hasNext()) {
             Order currentOrder = iterator.next();
             int curX = truck.getAddress().getX();
             int curY = truck.getAddress().getY();
@@ -44,8 +44,7 @@ public class NoUturnRoute implements RouteMethod
             int horDel = curX - destX;  // Horizontal delta
 
             // On vertical street
-            if (curY % 100 != 0)
-            {
+            if (curY % 100 != 0) {
                 // If the truck is moving in the correct direction, move that way
                 if (truck.getDirection() == Direction.NORTH && vertDel >= 0)
                     noUturnVertical(Direction.NORTH, horDel, destX, destY);
@@ -56,18 +55,16 @@ public class NoUturnRoute implements RouteMethod
                     handleUturn(truck.getDirection(), destX, destY);
             }
             // On horizontal street
-            else if (curX % 100 != 0)
-            {
+            else if (curX % 100 != 0) {
                 // If the truck is moving in the correct direction, move that way
                 if (truck.getDirection() == Direction.EAST && horDel <= 0)
                     noUturnHorizontal(Direction.EAST, horDel, destX, destY);
                 else if (truck.getDirection() == Direction.WEST && horDel > 0)
                     noUturnHorizontal(Direction.WEST, horDel, destX, destY);
-                // Else if the truck needs to avoid a U-turn, handle U-turn
+                    // Else if the truck needs to avoid a U-turn, handle U-turn
                 else
                     handleUturn(truck.getDirection(), destX, destY);
-            }
-            else
+            } else
                 cornerCrash();
 
             // Each stop takes 5 units of time

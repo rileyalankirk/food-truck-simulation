@@ -1,10 +1,14 @@
+/*
+ * Authors: Originally written by Abdullah.
+ */
+
 package Simulation;
 
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
-//Abdullah Alramyan
+
 public class GUI implements Observer {
 
     private  NeighborhoodFrame neighborhood;

@@ -1,7 +1,8 @@
 /*
  * The Address class is a simple class that encapsulates a x and y value to represent a location within a neighborhood.
  * The static variable blocks tells us the number of blocks in the neighborhood.
- * Every 100 units is a new street and houses are multiples of 10 between streets
+ * Every 100 units is a new street and houses are multiples of 10 between streets.
+ * Authors: Originally written by Riley.
  */
 
 

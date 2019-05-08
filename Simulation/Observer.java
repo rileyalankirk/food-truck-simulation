@@ -1,8 +1,12 @@
+/*
+ * Authors: Originally written by Abdullah.
+ */
+
 package Simulation;
 
 import java.io.IOException;
 
-//Abdullah Alramyan
+
 public interface Observer {
 
 

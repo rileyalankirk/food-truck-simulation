@@ -3,6 +3,7 @@
  * and the direction that the truck is facing. The Truck can be handled with an Address, double precision coordinates
  * x and y, or both; although the constructors only accept one form or the other. When direction is NONE, we know that
  * the truck is not moving.
+ * Authors: Originally written by Riley.
  */
 
 

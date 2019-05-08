@@ -2,6 +2,7 @@
  * The Command class has a length and a Direction. Commands will be used in Simulation to move the truck. The length can
  * represent a distance when the direction is one that can be moved in, but when the direction is NONE, length represents
  * a length of time.
+ * Authors: Originally written by Riley.
  */
 
 
