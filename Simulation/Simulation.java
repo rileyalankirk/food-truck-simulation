@@ -117,7 +117,6 @@ public class Simulation
             route = updateRoute(new OnlyRightTurnRoute());
 
         System.out.println("Route distance: " + route.getDistance());
-        System.out.println(route.getTime());
         
         //Print the time to the standard output
         int routeTimeHours = route.getTime() / 60;
