@@ -8,7 +8,7 @@ public class Mayo extends Condiment {
 	}
 
 	@Override
-	public int getPriceInCents() {
+	public int price() {
 		// TODO Auto-generated method stub
 		return 25;
 	}

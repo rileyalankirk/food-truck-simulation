@@ -92,23 +92,19 @@ public class Truck implements truckGenerator
         this.direction = direction;
     }
 
+
     @Override
     public void registerObserver(Observer display) {
 
-        observers.add(display);
     }
 
     @Override
     public void removeObserver(Observer display) {
-        observers.remove(display);
-    }
 
+    }
 
     @Override
-    public void notifyObserver(Order location) throws IOException {
-        for (Observer display : observers) {
-            display.update(location);
-        }
-    }
+    public void notifyObserver(Order truckCurLocation) throws IOException {
 
+    }
 }

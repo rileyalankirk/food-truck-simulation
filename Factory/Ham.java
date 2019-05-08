@@ -8,7 +8,7 @@ public class Ham extends Meat {
 	}
 
 	@Override
-	public int getPriceInCents() {
+	public int price() {
 		return 150;
 	}
 

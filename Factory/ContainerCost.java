@@ -8,9 +8,8 @@ public class ContainerCost extends Container {
 	}
 
 	@Override
-	public int getPriceInCents() {
-		// TODO Auto-generated method stub
-		return 75;
+	public int price() {
+		return 075;
 	}
 
 }

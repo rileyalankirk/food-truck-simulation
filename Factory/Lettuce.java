@@ -8,7 +8,7 @@ public class Lettuce extends Vegetables {
 	}
 
 	@Override
-	public int getPriceInCents() {
+	public int price() {
 		// TODO Auto-generated method stub
 		return 50;
 	}

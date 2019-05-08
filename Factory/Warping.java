@@ -8,7 +8,7 @@ public class Warping extends Container {
 	}
 
 	@Override
-	public int getPriceInCents() {
+	public int price() {
 		return 50;
 	}
 

@@ -8,5 +8,5 @@ public abstract class Price{
 	public abstract String toString();
 
 
-	public abstract int getPriceInCents();
+	public abstract int price();
 }

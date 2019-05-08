@@ -72,7 +72,7 @@ public class Order implements Comparable<Order> {
             int randomBread = rand.nextInt((1) + 1) + 1;
             int randomCondiment = rand.nextInt((7) + 1) + 1;
             int randomVegetables = rand.nextInt((3) + 1) + 1;
-            // MOVED RANDOM INTEGERS DOWN HERE SO ORDERS DO NOT REPEAT!
+
 
             if (randomBread == 1) {
                 items.add(new Food("Bread kind:" + "roll"));

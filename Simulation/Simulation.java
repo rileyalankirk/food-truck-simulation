@@ -37,7 +37,7 @@ public class Simulation
 
 
     // Class variables
-    private static Orders orders;
+    private static Order orders;
     private static ArrayList<Order>     deliveredOrders;
     private static RouteMethod          routeMethod;
     private static ArrayList<Command>   commands;
@@ -145,11 +145,8 @@ public class Simulation
 
         NeighborhoodFrame neighborhood = new NeighborhoodFrame(guiSize, blocks, distributionCenter);
         // Make the neighborhood visible
-        //TODO
-        //  Truck truck = new Truck();
-//         GUI gui = new GUI(neighborhood);
-//         truck.registerObserver(gui);
-        neighborhood.update(orders.getOrders(), deliveredOrders);
+
+        neighborhood.update(orders, deliveredOrders);
         neighborhood.setVisible(true);
 
         //Getting the first command from the list if there is one

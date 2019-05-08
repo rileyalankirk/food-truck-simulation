@@ -1,9 +1,13 @@
 package Factory;
 
-public class Driver extends SandwichTruck{
+
+import Simulation.Food;
+
+public class Sandwich extends Food {
     String type;
 
-    public Driver(String type) {
+    public Sandwich(String type) {
+        super(type);
         this.type = type;
     }
 
@@ -75,7 +79,7 @@ public class Driver extends SandwichTruck{
 
     @Override
     public String toString() {
-        return "Driver{" +
+        return "Sandwich{" +
                 "type='" + type + '\'' +
                 '}';
     }
