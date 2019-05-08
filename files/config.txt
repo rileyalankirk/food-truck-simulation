@@ -1,6 +1,6 @@
 10 Size of neighborhood (blocks)
 500 510 Location of distribution center
 800 Size of GUI (x, y)
-100 Number of orders
+3 Number of orders
 1000 1900 Time period truck is available (start, stop)
 4 Miniumum time difference between orders

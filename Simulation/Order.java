@@ -6,6 +6,15 @@
  */
 
 
+
+/*
+ * The Order class is has an address value, time, and list of items ordered. The static values addresses, minTimeDiff,
+ * minTime, and maxTime are values set by our config file for different calculations. lastTime allows us to keep track
+ * of the last time used for our next random time calculation.
+ * Authors: Originally written by Riley.
+ */
+
+
 package Simulation;
 
 
@@ -18,13 +27,12 @@ import java.util.PriorityQueue;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Order implements Comparable<Order>
-{
+public class Order implements Comparable<Order> {
     // Instance variables
     private ArrayList<Food> items;          // The items ordered
-    private Address         address;        // Location where the order is to be delivered
-    private boolean         orderDelivered; // Whether or not the order has been delivered
-    private int             time;           // The time the order was ordered
+    private Address address;        // Location where the order is to be delivered
+    private boolean orderDelivered; // Whether or not the order has been delivered
+    private int time;           // The time the order was ordered
 
     // Config variables
     private static int numAddresses = 1; // The number of addresses being simulated
@@ -35,8 +43,7 @@ public class Order implements Comparable<Order>
     // Class variables
     private static int lastTime = 0; // The time the last order was ordered at
 
-    public Order(Address address, int time, ArrayList<Food> items)
-    {
+    public Order(Address address, int time, ArrayList<Food> items) {
         this.address = address;
         this.time = time;
         this.items = items;
@@ -44,25 +51,71 @@ public class Order implements Comparable<Order>
     }
 
     // Creates a random order
-    protected Order(Address address)
-    {
+    protected Order(Address address) {
         this.address = address;
         time = getRandomTime();
-        items = new ArrayList<Food>();
+
+
+        items = new ArrayList<>();
         orderDelivered = false;
 
+        //TODO
         // Adds random items to the order
         Random rand = new Random();
-        if (rand.nextBoolean())
-            items.add(new Food("Beverage" + (rand.nextInt(3) + 1)));
-        if (rand.nextBoolean())
-            items.add(new Food("Sandwich" + (rand.nextInt(3) + 1)));
-        if (rand.nextBoolean())
-            items.add(new Food("Chips" + (rand.nextInt(3) + 1)));
-        // Force the customer to buy a sandwich if they say they want nothing
-        if (items.isEmpty())
-            items.add(new Food("Sandwich" + (rand.nextInt(3) + 1)));
+
+
+
+        for(int k = 0; k< numAddresses;k++) {
+
+
+            int randomMeat = rand.nextInt((2) + 1) + 1;
+            int randomBread = rand.nextInt((1) + 1) + 1;
+            int randomCondiment = rand.nextInt((7) + 1) + 1;
+            int randomVegetables = rand.nextInt((3) + 1) + 1;
+            // MOVED RANDOM INTEGERS DOWN HERE SO ORDERS DO NOT REPEAT!
+
+            if (randomBread == 1) {
+                items.add(new Food("Bread kind:" + "roll"));
+
+            } else {
+                items.add(new Food("Bread kind:" + "warp"));
+
+            }
+
+
+
+            if (randomMeat == 1) {
+                items.add(new Food("Meat kind:" + "turkey"));
+
+            } else
+                items.add(new Food("Meat kind:" + "Ham"));
+
+
+            if (randomCondiment == 1) {
+                items.add(new Food("Condiment kind:" + "mustard:mayo" ));
+
+            } else {
+                items.add(new Food("Mayo"));
+            }
+
+
+            if (randomVegetables == 1) {
+                items.add(new Food("Vegetables kind:" + "lettuce:tomato" ));
+
+            } else {
+                items.add(new Food("Vegetables kind:" + "lettuce"));
+            }
+
+
+        }
     }
+
+
+
+
+
+
+
 
     // Creates a random order
     protected Order()
@@ -123,8 +176,8 @@ public class Order implements Comparable<Order>
         if (items.size() == 0)
             return "";
         String s = "";
-        for (Food f : items)
-            s += f + ",";
+        //  for (Food f : items)
+        s += items + ",";
         return s.substring(0, s.length() - 1); // removes the extra comma
     }
 
