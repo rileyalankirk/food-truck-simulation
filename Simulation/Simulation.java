@@ -37,7 +37,7 @@ public class Simulation
 
 
     // Class variables
-    private static PriorityQueue<Order> orders;
+    private static Orders orders;
     private static ArrayList<Order>     deliveredOrders;
     private static RouteMethod          routeMethod;
     private static ArrayList<Command>   commands;
@@ -82,7 +82,7 @@ public class Simulation
     private static Route updateRoute(RouteMethod rm)
     {
         routeMethod = rm;
-        Route route = routeMethod.calculateRoute(orders, distributionCenter);
+        Route route = routeMethod.calculateRoute(orders.getOrders(), distributionCenter);
         commands = route.getCommands();
         return route;
     }
@@ -99,11 +99,13 @@ public class Simulation
         Address.setBlocks(blocks);
 
         // Write the specified number of random orders to a file
-        Order.writeOrders(FILE, numAddresses);
+        // Order.writeOrders(FILE, numAddresses);
 
         // Read the orders from the file and place them in a PriorityQueue. Instantiate deliveredOrders as an empty list
-        orders = Order.readOrders(FILE);
-        orders.add(new Order(new Address(distributionCenter.x, distributionCenter.y), 1901, null));
+        orders = Orders.getInstance();
+        PriorityQueue<Order> queueOrders = Order.readOrders(FILE);
+        queueOrders.add(new Order(new Address(distributionCenter.x, distributionCenter.y), 1901, null));
+        orders.updateOrders(queueOrders);
         deliveredOrders = new ArrayList<Order>();
 
         // Create the route the truck will follow and calculate how much time and distance the trip will take
@@ -147,7 +149,7 @@ public class Simulation
         //  Truck truck = new Truck();
 //         GUI gui = new GUI(neighborhood);
 //         truck.registerObserver(gui);
-        neighborhood.update(orders, deliveredOrders);
+        neighborhood.update(orders.getOrders(), deliveredOrders);
         neighborhood.setVisible(true);
 
         //Getting the first command from the list if there is one
@@ -212,7 +214,7 @@ public class Simulation
                     truck.setAddress(truckAddress);
                     neighborhood.setTruck(truck);
 
-                    neighborhood.update(orders, deliveredOrders);
+                    neighborhood.update(orders.getOrders(), deliveredOrders);
                     //TODO
 //                    try {
 //                        while(!commands.isEmpty())
