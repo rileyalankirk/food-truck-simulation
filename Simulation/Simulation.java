@@ -37,7 +37,7 @@ public class Simulation
 
 
     // Class variables
-    private static Order orders;
+    private static Orders orders;
     private static ArrayList<Order>     deliveredOrders;
     private static RouteMethod          routeMethod;
     private static ArrayList<Command>   commands;
@@ -119,7 +119,7 @@ public class Simulation
             route = updateRoute(new OnlyRightTurnRoute());
 
         System.out.println("Route distance: " + route.getDistance());
-        
+
         //Print the time to the standard output
         int routeTimeHours = route.getTime() / 60;
         int routeTimeMinutes = route.getTime() % 60;
@@ -146,7 +146,7 @@ public class Simulation
         NeighborhoodFrame neighborhood = new NeighborhoodFrame(guiSize, blocks, distributionCenter);
         // Make the neighborhood visible
 
-        neighborhood.update(orders, deliveredOrders);
+        neighborhood.update(orders.getOrders(), deliveredOrders);
         neighborhood.setVisible(true);
 
         //Getting the first command from the list if there is one
