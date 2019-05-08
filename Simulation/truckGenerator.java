@@ -14,5 +14,5 @@ truckGenerator {
     void removeObserver(Observer display);
 
 
-    void notifyObserver(Order truckCurLocation) throws IOException;
+    void notifyObserver(Order location) throws IOException;
 }

@@ -1,3 +1,7 @@
+/*
+ * Authors: Originally written by Abdullah.
+ */
+
 package Factory;
 
 public class Mustard extends Condiment {
@@ -9,7 +13,6 @@ public class Mustard extends Condiment {
 
 	@Override
 	public int price() {
-		// TODO Auto-generated method stub
 		return 25;
 	}
 

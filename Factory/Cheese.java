@@ -1,3 +1,7 @@
+/*
+ * Authors: Originally written by Abdullah.
+ */
+
 package Factory;
 
 public class Cheese extends Condiment {
@@ -10,7 +14,7 @@ public class Cheese extends Condiment {
 	@Override
 	public int price() {
 
-		return 075;
+		return 75;
 	}
 
 }

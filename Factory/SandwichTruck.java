@@ -3,52 +3,36 @@ package Factory;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Abdullah
- *
+/*
+ * Authors: Originally written by Abdullah.
  */
+
 public abstract class SandwichTruck {
-	private ArrayList<Price> toppings = new ArrayList<Price>();
-	private int totalPrice = 0;
+	private ArrayList<Price> ingredients  = new ArrayList<Price>();
+	private int Price = 0;
 
 	protected abstract String getType();
 
-	public void addTopping(Price t) {
-		toppings.add(t);
-		totalPrice += t.getPriceInCents();
+	public void ingredient(Price ingredient) {
+		ingredients.add(ingredient);
+		Price += ingredient.price();
 	}
 
-	public int getTotalPrice() {
+	public int fullPrice() {
 
-		return totalPrice + (totalPrice / 10);
+		return Price + (Price / 10);
 	}
 
 	public String toString() {
-		//TODO add typeing thing
-		String ret = getType() + " ";
-		for (Price t : toppings) {
-			ret = ret + t.toString();
+
+		String show = getType() + "topped ";
+		for (Price ingredient : ingredients) {
+			show = show + ingredients.toString();
 		}
-		ret = ret.substring(0, ret.length() - 1);
-		return ret;
+		show = show.substring(0, show.length() - 1);
+		return show;
 	}
 }
 
 
 
-//public abstract class SandwichTruck {
-//
-//
-//    protected abstract Sandwich createSandwitch(String item);
-//
-//    public Sandwich orderSandwich(String type) {
-//        Sandwich sandwich = createSandwitch(type);
-//        System.out.println("--- Making a " + sandwich.getName() + " ---");
-//        Sandwich.prepare();
-//        sandwich.cooking();
-//        sandwich.cut();
-//        sandwich.box();
-//        return sandwich;
-//    }
-//}

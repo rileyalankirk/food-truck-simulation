@@ -1,3 +1,7 @@
+/*
+ * Authors: Originally written by Abdullah.
+ */
+
 package Factory;
 
 public class Ham extends Meat {

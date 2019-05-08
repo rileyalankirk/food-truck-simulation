@@ -1,3 +1,7 @@
+/*
+ * Authors: Originally written by Abdullah.
+ */
+
 package Factory;
 
 public class ContainerCost extends Container {
@@ -9,7 +13,7 @@ public class ContainerCost extends Container {
 
 	@Override
 	public int price() {
-		return 075;
+		return 75;
 	}
 
 }

@@ -1,3 +1,7 @@
+/*
+ * Authors: Originally written by Abdullah.
+ */
+
 package Factory;
 
 public class Lettuce extends Vegetables {
@@ -9,7 +13,6 @@ public class Lettuce extends Vegetables {
 
 	@Override
 	public int price() {
-		// TODO Auto-generated method stub
 		return 50;
 	}
 

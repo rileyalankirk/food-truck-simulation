@@ -9,7 +9,6 @@ public class Tomato extends Vegetables {
 
 	@Override
 	public int price() {
-		// TODO Auto-generated method stub
 		return 75;
 	}
 

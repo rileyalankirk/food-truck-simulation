@@ -1,10 +1,14 @@
+/*
+ * Authors: Originally written by Abdullah.
+ */
+
 package Factory;
 
 
 import Simulation.Food;
 
 public class Sandwich extends Food {
-    String type;
+    private String type;
 
     public Sandwich(String type) {
         super(type);
@@ -29,41 +33,41 @@ public class Sandwich extends Food {
 
                 if (buildSandwich[1].equals("Ham")) {
                     assert sandwich != null;
-                    sandwich.addTopping(new Ham());
+                    sandwich.ingredient(new Ham());
                 }
 
                 else if(buildSandwich[1].equals("Turkey")) {
                     assert sandwich != null;
-                    sandwich.addTopping(new Turkey());
+                    sandwich.ingredient(new Turkey());
                 }
 
            if(buildSandwich[2].equals("cheese"))
                if (sandwich != null) {
-                   sandwich.addTopping(new Cheese());
+                   sandwich.ingredient(new Cheese());
                }
 
            if(buildSandwich[3].equals("mayo")) {
                     assert sandwich != null;
-                    sandwich.addTopping(new Mayo());
+                    sandwich.ingredient(new Mayo());
                 }
 
         if(buildSandwich[4].equals("mustard")) {
             assert sandwich != null;
-            sandwich.addTopping(new Mustard());
+            sandwich.ingredient(new Mustard());
         }
 
         if(buildSandwich[5].equals("lettuce")) {
             assert sandwich != null;
-            sandwich.addTopping(new Lettuce());
+            sandwich.ingredient(new Lettuce());
         }
 
         if(buildSandwich[6].equals("tomato")) {
             assert sandwich != null;
-            sandwich.addTopping(new Tomato());
+            sandwich.ingredient(new Tomato());
         }
         assert sandwich != null;
-        sandwich.addTopping(new ContainerCost());
-       sandwich.addTopping(new Warping());
+        sandwich.ingredient(new ContainerCost());
+       sandwich.ingredient(new Warping());
 
 
         return sandwich;
